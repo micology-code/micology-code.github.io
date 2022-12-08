@@ -81,3 +81,33 @@ html, body {
     user-select: none;
     -webkit-user-select: none;
 }
+
+.userName
+{
+    position: fixed;
+    left: 55px;
+    top: 21px;
+    font-size: 20px;
+    z-index: 1;
+    color: white;
+}
+
+.follow
+{
+    position: fixed;
+    left: 176px;
+    top: 28px;
+    font-size: 15px;
+    z-index: 1;
+    color: white;
+}
+
+.coin
+{
+    position: fixed;
+    left: 46%;
+    top: 47.2%;
+    font-size: 15px;
+    z-index: 1;
+    color: white;
+}
