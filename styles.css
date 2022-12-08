@@ -28,29 +28,64 @@ html, body
     top: 0;
 }
 
-.topUI
+.top
 {
-    position: fixed;
-    width: 100%;
-}
-
-.topUIImg
-{
-    width: 100%;
-}
-
-/*#midUI {
-    max-height: 100%;
-    max-width: 100%;
-    width: auto;
-    height: auto;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    margin: auto;
-}*/
+    margin: 0 0 0 0;
+}
+
+.topUI
+{
+    width: 100%;
+    position: absolute;
+}
+
+.userName
+{
+    position: relative;
+    font-size: 2vh;
+    z-index: 1;
+    color: white;
+    text-align: left;
+    margin: 10% 0 0 15%;
+}
+
+.follow
+{
+    position: absolute;
+    font-size: 1.5vh;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    margin: 10.5% 0 0 47%;
+    top:0;
+}
+
+
+.coin
+{
+    font-size: 2vh;
+    z-index: 1;
+    color: white;
+    text-align: center;
+    position: relative;
+    margin: 5% 0 0 3%;
+}
+
+.mid
+{
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: -30px 0 0 0;
+}
+
 #midUI
 {
     width: 100%;
@@ -102,44 +137,4 @@ html, body
     margin: auto;
     user-select: none;
     -webkit-user-select: none;
-}
-
-.userName
-{
-    position: fixed;
-    left: 17%;
-    top: 3.1%;
-    font-size: 20px;
-    z-index: 1;
-    color: white;
-}
-
-.follow
-{
-    position: fixed;
-    left: 47%;
-    top: 3.1%;
-    font-size: 15px;
-    z-index: 1;
-    color: white;
-}
-
-.coin
-{
-    font-size: 2vh;
-    z-index: 1;
-    color: white;
-    text-align: center;
-    position: relative;
-    margin: 5% 0 0 3%;
-}
-
-.mid
-{
-    position: absolute;
-    top: 50%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: -30px 0 0 0;
 }
