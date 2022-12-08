@@ -22,7 +22,6 @@ var delayCreateScene = function () {
     var camera1 = new BABYLON.ArcRotateCamera("camera1", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0, 1, 0), scene);
     scene.activeCamera = camera1;
     scene.activeCamera.attachControl(canvas, true);
-    //camera1.target = new BABYLON.Vector3(90, 0, 0);
     camera1.lowerRadiusLimit = 2;
     camera1.upperRadiusLimit = 10;
     camera1.wheelDeltaPercentage = 0.01;

@@ -29,12 +29,29 @@
     <div id="ui">
         <img id="topUI" src="ui/Top.png" />
         <img id="midUI" src="ui/Middle.png" />
-        <div  id="bottomUI">
-            <img class="mainButton" id="buttonLeft" src="ui/Btn_Left_Normal.png" />
-            <img class="mainButton" id="buttonMiddle" src="ui/Btn_Action_Normal.png" />
-            <img class="mainButton" id="buttonRight" src="ui/Btn_Right_Normal.png" />
-        </div>
+        <button class="bigButton" onclick="onLeftButtonClick()">
+            <img class="buttonImage" id="buttonLeft" src="ui/Btn_Left_Normal.png" />
+        </button>
+        <button class="bigButton" onclick="onMiddleButtonClick()">
+            <img class="buttonImage" id="buttonMiddle" src="ui/Btn_Action_Normal.png" />
+        </button>
+        <button class="bigButton" onclick="onRightButtonClick()">
+            <img class="buttonImage" id="buttonRight" src="ui/Btn_Right_Normal.png" />
+        </button>
     </div>
     <script src="babylon.js"></script>
+    <script>
+        function onLeftButtonClick() {
+            console.log("left click");
+        }
+
+        function onMiddleButtonClick() {
+            console.log("middle click");
+        }
+
+        function onRightButtonClick() {
+            console.log("right click");
+        }
+    </script>
 </body>
 </html>
