@@ -1,4 +1,5 @@
-html, body {
+html, body
+{
     overflow: hidden;
     width: 100%;
     height: 100vh;
@@ -6,30 +7,39 @@ html, body {
     padding: 0;
 }
 
-#renderCanvas {
+#renderCanvas
+{
     width: 100%;
     height: 50%;
     touch-action: none;
 }
 
-#streamFrame {
+#streamFrame
+{
     width: 100%;
     height: 50%;
 }
 
-#ui {
+#ui
+{
     position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
 }
 
-#topUI {
+.topUI
+{
     position: fixed;
     width: 100%;
 }
 
-#midUI {
+.topUIImg
+{
+    width: 100%;
+}
+
+/*#midUI {
     max-height: 100%;
     max-width: 100%;
     width: auto;
@@ -40,34 +50,46 @@ html, body {
     left: 0;
     right: 0;
     margin: auto;
+}*/
+#midUI
+{
+    width: 100%;
+    position: absolute;
 }
 
-#buttonLeft {
+#buttonLeft
+{
     left: 0;
 }
 
-#buttonLeft:active {
+#buttonLeft:active
+{
     content: url("ui/Btn_Left_Press.png");
 }
 
-#buttonMiddle {
+#buttonMiddle
+{
     left: 0;
     right: 0;
 }
 
-#buttonMiddle:active {
+#buttonMiddle:active
+{
     content: url("ui/Btn_Action_Press.png");
 }
 
-#buttonRight {
+#buttonRight
+{
     right: 0;
 }
 
-#buttonRight:active {
+#buttonRight:active
+{
     content: url("ui/Btn_Right_Press.png");
 }
 
-.bigButton {
+.bigButton
+{
     all: unset;
 }
 
@@ -104,10 +126,20 @@ html, body {
 
 .coin
 {
-    position: fixed;
-    left: 46%;
-    top: 47.2%;
-    font-size: 15px;
+    font-size: 2vh;
     z-index: 1;
     color: white;
+    text-align: center;
+    position: relative;
+    margin: 5% 0 0 3%;
+}
+
+.mid
+{
+    position: absolute;
+    top: 50%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: -30px 0 0 0;
 }

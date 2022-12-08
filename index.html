@@ -27,11 +27,15 @@
     <iframe id="streamFrame" src="https://viewer.millicast.com?streamId=beVxbP/lb1zkt9s" allowfullscreen width="1280" height="720"></iframe>
     <canvas id="renderCanvas"></canvas>
     <div id="ui">
-        <img id="topUI" src="ui/Top.png">
-        <h1 class="userName">Carkos</h1>
-        <h1 class="follow">Follow</h1>
-        <h1 class="coin">123456</h1>
-        <img id="midUI" src="ui/Middle.png" />
+        <div class="topUI">
+            <img class="topUIImg" src="ui/Top.png"/>
+            <h1 class="userName">Carkos</h1>
+            <h1 class="follow">Follow</h1>
+        </div>
+        <div class="mid">
+            <img id="midUI" src="ui/Middle.png">
+            <h1 class="coin">123456</h1>
+        </div>
         <button class="bigButton" onclick="onLeftButtonClick()">
             <img class="buttonImage" id="buttonLeft" src="ui/Btn_Left_Normal.png" />
         </button>
