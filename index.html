@@ -28,9 +28,10 @@
     <canvas id="renderCanvas"></canvas>
     <div id="ui">
         <div class="top">
-            <img class="topUI" src="ui/Top.png"/>
+            <img class="topUI" src="ui/Top.png" />
             <p class="userName">Carkos</p>
             <p class="follow">Follow</p>
+            <p id="stateLabel">Ready to connect...</p>
         </div>
         <div class="mid">
             <img id="midUI" src="ui/Middle.png">
@@ -49,16 +50,91 @@
     <script src="babylon.js"></script>
     <script>
         function onLeftButtonClick() {
-            console.log("left click");
+            send(1);
         }
 
         function onMiddleButtonClick() {
-            console.log("middle click");
+            send(2);
         }
 
         function onRightButtonClick() {
-            console.log("right click");
+            send(3);
         }
+
+        var stateLabel = document.getElementById("stateLabel");
+        var socket;
+
+        var scheme = document.location.protocol === "https:" ? "wss" : "ws";
+        var port = document.location.port ? (":" + document.location.port) : "";
+
+        //connectionUrl.value = scheme + "://" + document.location.hostname + port + "/ws";
+        var connectionUrl = "wss://localhost:63756/ws";
+
+        function updateState() {        
+
+            if (!socket) {
+                disable();
+            } else {
+                switch (socket.readyState) {
+                    case WebSocket.CLOSED:
+                        stateLabel.innerHTML = "Closed";                    
+                        break;
+                    case WebSocket.CLOSING:
+                        stateLabel.innerHTML = "Closing...";
+                        break;
+                    case WebSocket.CONNECTING:
+                        stateLabel.innerHTML = "Connecting...";
+                        break;
+                    case WebSocket.OPEN:
+                        stateLabel.innerHTML = "Open";
+                        break;
+                    default:
+                        stateLabel.innerHTML = "Unknown WebSocket State: " + htmlEscape(socket.readyState);
+                        break;
+                }
+            }
+        }
+
+        function close() {
+            if (!socket || socket.readyState !== WebSocket.OPEN) {
+                alert("socket not connected");
+            }
+            socket.close(1000, "Closing from client");
+        };
+
+        function send(value) {
+            if (!socket || socket.readyState !== WebSocket.OPEN) {
+                alert("socket not connected");
+            }
+            var data = value;
+            socket.send(data);
+        };
+
+        function connect() {
+            stateLabel.innerHTML = "Connecting";
+            socket = new WebSocket(connectionUrl);
+            socket.onopen = function (event) {
+                updateState();
+            };
+            socket.onclose = function (event) {
+                updateState();
+            };
+            socket.onerror = updateState;
+            socket.onmessage = function (event) {
+                console.log(event.data);
+            };
+        };
+
+        function htmlEscape(str) {
+            return str.toString()
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        connect();
     </script>
 </body>
 </html>
