@@ -5,6 +5,12 @@ html, body
     height: 100vh;
     margin: 0;
     padding: 0;
+    -webkit-touch-callout: none !important;
+}
+
+a
+{
+    -webkit-user-select: none !important;
 }
 
 #renderCanvas
@@ -140,6 +146,8 @@ html, body
 .bigButton
 {
     all: unset;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
 }
 
 .buttonImage
