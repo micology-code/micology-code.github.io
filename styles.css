@@ -1,3 +1,14 @@
+*
+{
+    touch-action: manipulation !important;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none;
+}
+
 html, body
 {
     overflow: hidden;
@@ -5,12 +16,6 @@ html, body
     height: 100vh;
     margin: 0;
     padding: 0;
-    -webkit-touch-callout: none !important;
-}
-
-a
-{
-    -webkit-user-select: none !important;
 }
 
 #renderCanvas
@@ -146,8 +151,6 @@ a
 .bigButton
 {
     all: unset;
-    -webkit-touch-callout: none !important;
-    -webkit-user-select: none !important;
 }
 
 .buttonImage

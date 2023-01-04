@@ -20,6 +20,8 @@
     <!--<script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>-->
     <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
     <!--<script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+    <script src="https://markknol.github.io/console-log-viewer/console-log-viewer.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -28,37 +30,75 @@
     <canvas id="renderCanvas"></canvas>
     <div id="ui">
         <div class="top">
-            <img class="topUI" src="ui/Top.png" />
+            <img class="topUI" src="ui/Top.png" draggable="false" />
             <p class="userName">Carkos</p>
             <p class="follow">Follow</p>
             <p id="stateLabel">Ready to connect...</p>
         </div>
         <div class="mid">
             <img id="midUI" src="ui/Middle.png">
-            <h1 class="coin">123456</h1>
+            <h1 class="coin">123</h1>
         </div>
-        <button class="bigButton" onclick="onLeftButtonClick()">
-            <img class="buttonImage" id="buttonLeft" src="ui/Btn_Left_Normal.png" />
+        <button class="bigButton" ontouchstart="onLeftButtonClick()" onclick="onLeftButtonClick()">
+            <img class="buttonImage" id="buttonLeft" src="ui/Btn_Left_Normal.png" draggable="false" />
         </button>
-        <button class="bigButton" onclick="onMiddleButtonClick()">
-            <img class="buttonImage" id="buttonMiddle" src="ui/Btn_Action_Normal.png" />
+        <button class="bigButton" ontouchstart="onMiddleButtonClick()" onclick="onMiddleButtonClick()">
+            <img class="buttonImage" id="buttonMiddle" src="ui/Btn_Action_Normal.png" draggable="false" />
         </button>
-        <button class="bigButton" onclick="onRightButtonClick()">
-            <img class="buttonImage" id="buttonRight" src="ui/Btn_Right_Normal.png" />
+        <button class="bigButton" ontouchstart="onRightButtonClick()" onclick="onRightButtonClick()">
+            <img class="buttonImage" id="buttonRight" src="ui/Btn_Right_Normal.png" draggable="false" />
         </button>
     </div>
     <script src="babylon.js"></script>
     <script>
+
+        //disable safari magnifying glass
+        var htmlElements = document.getElementsByClassName('buttonImage');
+        for (let i = 0; i < htmlElements.length; i++) {
+            htmlElements[i].addEventListener('touchstart', function (event) {
+                event.preventDefault();
+            }, false);
+        }
+
+        function resetElement(e) {
+            var $e = $(e);
+            var $original = $e.clone();
+            $e.replaceWith($original);
+        }
+
+        allTimeout = undefined;
+
+        function resetElements() {
+
+            clearTimeout(allTimeout);
+            allTimeout = setTimeout(function () {
+
+                var bigButtons = document.getElementsByClassName('bigButton');
+                for (let i = 0; i < bigButtons.length; i++) {
+                    resetElement(bigButtons[i]);
+                }
+
+            }, 200);
+        }
+
+        leftTimeout = undefined;
+
         function onLeftButtonClick() {
             send(1);
+            resetElements();
+            event.preventDefault();
         }
 
         function onMiddleButtonClick() {
             send(2);
+            resetElements();
+            event.preventDefault();
         }
 
         function onRightButtonClick() {
             send(3);
+            resetElements();
+            event.preventDefault();
         }
 
         var stateLabel = document.getElementById("stateLabel");
@@ -70,14 +110,14 @@
         connectionUrl.value = scheme + "://" + document.location.hostname + port + "/ws";
         //var connectionUrl = "wss://localhost:63756/ws";
 
-        function updateState() {        
+        function updateState() {
 
             if (!socket) {
                 disable();
             } else {
                 switch (socket.readyState) {
                     case WebSocket.CLOSED:
-                        stateLabel.innerHTML = "Closed";                    
+                        stateLabel.innerHTML = "Closed";
                         break;
                     case WebSocket.CLOSING:
                         stateLabel.innerHTML = "Closing...";
@@ -104,7 +144,8 @@
 
         function send(value) {
             if (!socket || socket.readyState !== WebSocket.OPEN) {
-                alert("socket not connected");
+                //alert("socket not connected");
+                return;
             }
             var data = value;
             socket.send(data);
