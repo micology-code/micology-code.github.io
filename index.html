@@ -67,8 +67,8 @@
         var scheme = document.location.protocol === "https:" ? "wss" : "ws";
         var port = document.location.port ? (":" + document.location.port) : "";
 
-        //connectionUrl.value = scheme + "://" + document.location.hostname + port + "/ws";
-        var connectionUrl = "wss://localhost:63756/ws";
+        connectionUrl.value = scheme + "://" + document.location.hostname + port + "/ws";
+        //var connectionUrl = "wss://localhost:63756/ws";
 
         function updateState() {        
 
