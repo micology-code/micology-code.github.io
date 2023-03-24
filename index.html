@@ -1,186 +1,75 @@
-<!DOCTYPE html>
-<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <title>Babylon.js sample code</title>
+  <script type="module" src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"></script>
 
-    <!-- Babylon.js -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>-->
-    <!--<script src="https://assets.babylonjs.com/generated/Assets.js"></script>-->
-    <!--<script src="https://preview.babylonjs.com/ammo.js"></script>-->
-    <!--<script src="https://preview.babylonjs.com/cannon.js"></script>-->
-    <!--<script src="https://preview.babylonjs.com/Oimo.js"></script>-->
-    <!--<script src="https://preview.babylonjs.com/earcut.min.js"></script>-->
-    <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-    <!--<script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>-->
-    <!--<script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>-->
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-    <!--<script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>-->
-    <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-    <!--<script src="https://preview.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>-->
-    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
-    <script src="https://markknol.github.io/console-log-viewer/console-log-viewer.js"></script>
-    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<video hidden style="width:100%" src="ReadmeResources/vid.mp4" controls></video>
 
-    <iframe id="streamFrame" src="https://viewer.millicast.com?streamId=beVxbP/lb1zkt9s" allowfullscreen></iframe>
-    <canvas id="renderCanvas"></canvas>
-    <div id="ui">
-        <div class="top">
-            <img class="topUI" src="ui/Top.png" draggable="false" />
-            <p class="userName">Carkos</p>
-            <p class="follow">Follow</p>
-            <p id="stateLabel">Ready to connect...</p>
-        </div>
-        <div class="mid" id="midCon">
-            <img id="midUI" src="ui/Middle.png">
-            <h1 class="coin">123</h1>
-        </div>
-        <button class="bigButton" ontouchstart="onLeftButtonClick()" onclick="onLeftButtonClick()">
-            <img class="buttonImage" id="buttonLeft" src="ui/Btn_Left_Normal.png" draggable="false" />
-        </button>
-        <button class="bigButton" ontouchstart="onMiddleButtonClick()" onclick="onMiddleButtonClick()">
-            <img class="buttonImage" id="buttonMiddle" src="ui/Btn_Action_Normal.png" draggable="false" />
-        </button>
-        <button class="bigButton" ontouchstart="onRightButtonClick()" onclick="onRightButtonClick()">
-            <img class="buttonImage" id="buttonRight" src="ui/Btn_Right_Normal.png" draggable="false" />
-        </button>
-    </div>
-    <script src="babylon.js"></script>
-    <script>
 
-        //position mid UI
-        var ifra = document.getElementById("streamFrame");
-        var uiHeight = document.getElementById("midUI").clientHeight;
-        document.getElementById("midCon").style.top = (ifra.clientHeight - uiHeight * 0.4) + "px";
+<zero-md>
+<script type="text/markdown">
 
-        //disable safari magnifying glass
-        var htmlElements = document.getElementsByClassName('buttonImage');
-        for (let i = 0; i < htmlElements.length; i++) {
-            htmlElements[i].addEventListener('touchstart', function (event) {
-                event.preventDefault();
-            }, false);
-        }
+# Ultimate MetaPortal Guide
 
-        function resetElement(e) {
-            var $e = $(e);
-            var $original = $e.clone();
-            $e.replaceWith($original);
-        }
+Usage
+---------------
+1. Launch `OBS`
+2. Double click `Launch` shortcut
 
-        allTimeout = undefined;
+---
+Troubleshoot
+---------------
 
-        function resetElements() {
+#1 Camera black screen in `OBS`
+---------------
+1. Close `OBS`
+2. Launch `Insta360 Link Controller`
+3. Confim camera feed working
+4. Close `Insta360 Link Controller`
+5. Open `OBS`
 
-            clearTimeout(allTimeout);
-            allTimeout = setTimeout(function () {
+If still not working, delete and recreate video capture device in OBS
 
-                var bigButtons = document.getElementsByClassName('bigButton');
-                for (let i = 0; i < bigButtons.length; i++) {
-                    resetElement(bigButtons[i]);
-                }
+#2 Rocket project start with only UI
+---------------
+<img width="500" src="ReadmeResources/blackwithui.png"></img>
 
-            }, 200);
-        }
+Make sure `OBS` camera is working
 
-        leftTimeout = undefined;
+#3 Unreal not receiveing feed from `OBS`
+---------------
+1. Make sure `Spout Output Settings` is started in `OBS`.
+2. Make sure `Spout Filter` is set in `Video Capture Device`.
 
-        function onLeftButtonClick() {
-            send(1);
-            resetElements();
-            event.preventDefault();
-        }
+<video width="500" src="ReadmeResources/spout1.mp4" controls></video>
 
-        function onMiddleButtonClick() {
-            send(2);
-            resetElements();
-            event.preventDefault();
-        }
+2. Make sure unreal is set to use the correct spout output.
+>OWLSpoutReceiverManager=>Spout Receiver is set to `Spout_OBS_Filter`
 
-        function onRightButtonClick() {
-            send(3);
-            resetElements();
-            event.preventDefault();
-        }
+<video width="500" src="ReadmeResources/spout2.mp4" controls></video>
 
-        var stateLabel = document.getElementById("stateLabel");
-        var socket;
+#4 (re)upload specific file
+---------------
+1. Make sure `VideoUploader` is started
+2. Open `VideoFolder`
+3. Drag the file out of `VideoFolder`
+4. Drag the file back to `VideoFolder`
 
-        var scheme = document.location.protocol === "https:" ? "wss" : "ws";
-        var port = document.location.port ? (":" + document.location.port) : "";
+<video width="500" src="ReadmeResources/reupload.mp4" controls></video>
 
-        connectionUrl.value = scheme + "://" + document.location.hostname + port + "/ws";
-        //var connectionUrl = "wss://localhost:63756/ws";
+#5 Check uploaded file
+---------------
+Go to [booth.micology.ai](https://booth.micology.ai).
 
-        function updateState() {
+#6 Sign in to Offworld live
+---------------
+1. Log in with account
+2. Restart unreal if watermark still show
 
-            if (!socket) {
-                disable();
-            } else {
-                switch (socket.readyState) {
-                    case WebSocket.CLOSED:
-                        stateLabel.innerHTML = "Closed";
-                        break;
-                    case WebSocket.CLOSING:
-                        stateLabel.innerHTML = "Closing...";
-                        break;
-                    case WebSocket.CONNECTING:
-                        stateLabel.innerHTML = "Connecting...";
-                        break;
-                    case WebSocket.OPEN:
-                        stateLabel.innerHTML = "Open";
-                        break;
-                    default:
-                        stateLabel.innerHTML = "Unknown WebSocket State: " + htmlEscape(socket.readyState);
-                        break;
-                }
-            }
-        }
+>enyvpmwjvvxkslhxzy@tpwlb.com
 
-        function close() {
-            if (!socket || socket.readyState !== WebSocket.OPEN) {
-                alert("socket not connected");
-            }
-            socket.close(1000, "Closing from client");
-        };
+>enyvpmwjvvxkslhxzy
 
-        function send(value) {
-            if (!socket || socket.readyState !== WebSocket.OPEN) {
-                //alert("socket not connected");
-                return;
-            }
-            var data = value;
-            socket.send(data);
-        };
+<video width="500" src="ReadmeResources/offworld.mp4" controls></video>
 
-        function connect() {
-            stateLabel.innerHTML = "Connecting";
-            socket = new WebSocket(connectionUrl);
-            socket.onopen = function (event) {
-                updateState();
-            };
-            socket.onclose = function (event) {
-                updateState();
-            };
-            socket.onerror = updateState;
-            socket.onmessage = function (event) {
-                console.log(event.data);
-            };
-        };
-
-        function htmlEscape(str) {
-            return str.toString()
-                .replace(/&/g, '&amp;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
-
-        connect();
-    </script>
-</body>
-</html>
+</script>
+</zero-md>
